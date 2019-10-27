@@ -1,0 +1,98 @@
+{% extends 'bast.html' %}
+
+{% block basic_info %}
+    <div class="field">
+  <div class="control">
+    <div class="select is-primary">
+      <select>
+        <option>Select dropdown</option>
+        <option>With options</option>
+      </select>
+    </div>
+  </div>
+</div>
+<div class="field">
+  <div class="control">
+    <div class="select is-info">
+      <select>
+        <option>Select dropdown</option>
+        <option>With options</option>
+      </select>
+    </div>
+  </div>
+</div>
+<div class="field">
+  <div class="control">
+    <div class="select is-success">
+      <select>
+        <option>Select dropdown</option>
+        <option>With options</option>
+      </select>
+    </div>
+  </div>
+</div>
+<div class="field">
+  <div class="control">
+    <div class="select is-warning">
+      <select>
+        <option>Select dropdown</option>
+        <option>With options</option>
+      </select>
+    </div>
+  </div>
+</div>
+<div class="field">
+  <div class="control">
+    <div class="select is-danger">
+      <select>
+        <option>Select dropdown</option>
+        <option>With options</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+
+<h2>模拟城市-无联动/无搜索</h2>
+    <div class="city-picker-selector" id="city-picker-selector">
+        <div class="selector-item storey province">
+            <a href="javascript:;" class="selector-name reveal">北京市</a>
+            <input type="hidden" name="userProvinceId" class="input-price val-error" value="110000" data-required="userProvinceId">
+            <div class="selector-list listing hide">
+                <ul>
+                    <li>北京市</li>
+                    <li>天津市</li>
+                    <li>河北省</li>
+                    <li>山西省</li>
+                </ul>
+            </div>
+        </div>
+        <div class="selector-item storey city">
+            <a href="javascript:;" class="selector-name reveal">北京市</a>
+            <input type="hidden" name="userCityId" class="input-price val-error" value="110100" data-required="userCityId">
+            <div class="selector-list listing hide">
+                <ul>
+                    <li>北京市</li>
+                </ul>
+            </div>
+        </div>
+        <div class="selector-item storey district">
+            <a href="javascript:;" class="selector-name reveal">海淀区</a>
+            <input type="hidden" name="userDistrictId" class="input-price val-error" value="110108" data-required="userDistrictId">
+            <div class="selector-list listing hide">
+                <ul>
+                    <li>东城区</li>
+                    <li>西城区</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- end .city-picker-selector -->
+
+    
+    <!-- end .city-picker-selector -->
+
+    <!-- end .city-picker-select -->
+    
+    
+{% endblock basic_info %}

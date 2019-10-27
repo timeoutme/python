@@ -1,0 +1,25 @@
+{% extends 'bast.html' %}
+
+<div>
+{% block login %}
+<h2>登录Product Hunt</h2>
+        {{错误}}
+        
+        <form class="form-horizontal" action="{% url '登录' %}" method="POST" >
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="user_name">用户名：</label>
+            <input type="text" name="用户名">
+        </div>
+        
+        <div class="form-group">
+                <label for="password">密码：</label>
+                <input type="password" name="密码">
+        </div>
+        
+        <input type="submit" value="确认">
+    </form>
+
+
+{% endblock login %}
+</div>
