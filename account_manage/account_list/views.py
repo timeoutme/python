@@ -17,8 +17,7 @@ def login(request):
             auth.login(request,user)
             return redirect('主页')
 
-def home(request):
-    return render(request,'home.html')
+
 
 
 def add(request):
@@ -55,4 +54,7 @@ def add_save(request):
             return render(request,'add.html',{'错误':'请查看是否有信息没填','账号':Accounts.objects.all()})    
     elif request.method == 'GET':
         return render(request,'add.html',{'账号':Accounts.objects.all()})
-            
+
+
+def home(request):
+    return render(request,'home.html',{'账号':Accounts.objects.all()})

@@ -12,7 +12,7 @@
         var province=document.getElementById('province');
         var city=document.getElementById('city');
         var county=document.getElementById('county');
-        var option = "<option value='请选择'>请选择</option>";
+        var option = "<option value=''>请选择</option>";
         province.innerHTML = option;
         city.innerHTML = option;
         county.innerHTML = option;
@@ -42,12 +42,12 @@
                                 }).join('');
                             }
                         }
-                        county.innerHTML="<option value='请选择'>请选择</option>"+option_count;
+                        county.innerHTML="<option value=''>请选择</option>"+option_count;
                     }
                 }
             }
-            city.innerHTML="<option value='请选择'>请选择</option>"+option_city;
-            county.innerHTML="<option value='请选择'>请选择</option>"
+            city.innerHTML="<option value=''>请选择</option>"+option_city;
+            county.innerHTML="<option value=''>请选择</option>"
         }
     
 

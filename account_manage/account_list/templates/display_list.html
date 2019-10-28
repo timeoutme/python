@@ -1,14 +1,15 @@
-<table class="table" style="margin-top: 10px;">
+
+<table class="table is-fullwidth" style="margin-top: 10px;">
   <thead>
     <tr>
-      <th>序号</th>
+      <th>编号</th>
       <th>账号</th>
       <th>地区</th>
       <th>省份</th>
       <th>城市</th>
       <th>区县</th>
       <th>性别</th>
-      <th>年龄</th>
+      <th>生日</th>
       <th>学历</th>
       <th>行业</th>
       <th>职位</th>
@@ -16,28 +17,30 @@
       <th>工作状态</th>
       <th>小孩</th>
       <th>邮编</th>
-      <th>其它</th>
+      <th>拥有者</th>
     </tr>
   </thead>
-  <tfoot>
-    <tr>
-      <th>001</th>
-      <th>1231002232</th>
-      <th>中国大陆</th>
-      <th>湖北</th>
-      <th>武汉</th>
-      <th>江岸</th>
-      <th>男</th>
-      <th>50</th>
-      <th>本科</th>
-      <th>设计：图形艺术 / 商业艺术 / 产品设计</th>
-      <th>行政</th>
-      <th>已婚</th>
-      <th>全职</th>
-      <th>1</th>
-      <th>433100</th>
-      <th>其它</th>
+  <tfoot> 
+  {% for acc in 账号 %}
+    <tr >
+      <td>{{acc.id}}</td>
+      <td>{{acc.account}}</td>
+      <td>{{acc.area}}</td>
+      <td>{{acc.province}}</td>
+      <td>{{acc.city}}</td>
+      <td>{{acc.county}}</td>
+      <td>{{acc.sex}}</td>
+      <td>{{acc.birthday}}</td>
+      <td>{{acc.edu}}</td>
+      <td>{{acc.trade}}</td>
+      <td>{{acc.position}}</td>
+      <td>{{acc.marriage}}</td>
+      <td>{{acc.working}}</td>
+      <td>{{acc.child}}</td>
+      <td>{{acc.zip_code}}</td>
+      <td>{{acc.user}}</td>
     </tr>
+  {% endfor %}  
   </tfoot>
   
 </table>
