@@ -48,7 +48,7 @@ def add_save(request):
             day = request.POST['day']
             birthday = year + '年' + month + '月' + day + '日'
 
-            acc = Accounts(account=account,area=area,province=province,city=city,county=county,sex=sex,birthday=birthday,edu=edu,trade=trade,position=position,marriage=marriage,child=child,user=user)
+            acc = Accounts(account=account,area=area,province=province,city=city,county=county,sex=sex,birthday=birthday,edu=edu,trade=trade,position=position,marriage=marriage,working=working,child=child,user=user,zip_code=zip_code)
             acc.save()
             return render(request,'add.html',{'账号':Accounts.objects.all()})
         else:
