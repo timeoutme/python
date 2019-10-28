@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from .models import Accounts
 from django.contrib.auth.models import User
 from django.contrib import auth
+from django.db.models import Q
 # Create your views here.
 
 def login(request):
@@ -58,3 +59,34 @@ def add_save(request):
 
 def home(request):
     return render(request,'home.html',{'账号':Accounts.objects.all()})
+
+
+def search(request):
+    if request.method == 'POST':
+        area = request.POST.get('area')
+        province = request.POST.get('province')
+        city = request.POST.get('city')
+        county = request.POST.get('county')
+        area_list = Accounts.objects.filter(area=area)
+        province_list = Accounts.objects.filter(area=area,province=province)
+        city_list = Accounts.objects.filter(area=area,province=province,city=city)
+        county_list = Accounts.objects.filter(area=area,province=province,city=city,county=county)
+        # search_get_list = Accounts.objects.filter(Q(area__startswith=area) | Q(province__startswith=province) | Q(city__startswith=city) & Q(county__startswith=county))
+        if area:
+            if province:
+                
+                if city:
+
+                    if county:
+                        return render(request,'search_list.html',{'搜索列表':county_list})
+                    else:
+                        return render(request,'search_list.html',{'搜索列表':city_list})   
+                else:
+                    return render(request,'search_list.html',{'搜索列表':province_list})
+            else:
+                return render(request,'search_list.html',{'搜索列表':area_list})    
+       
+       
+        
+
+        

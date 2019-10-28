@@ -1,0 +1,61 @@
+{% extends 'bast.html' %}
+
+<div>
+    {% block basic_info %}
+
+        {% include 'choose.html' %}
+
+    {% endblock basic_info %}
+</div>
+
+
+{% block search_list %}
+<div>
+<table class="table is-fullwidth" style="margin-top: 10px;">
+
+  <thead>
+    <tr>
+      <th>编号</th>
+      <th>账号</th>
+      <th>地区</th>
+      <th>省份</th>
+      <th>城市</th>
+      <th>区县</th>
+      <th>性别</th>
+      <th>生日</th>
+      <th>学历</th>
+      <th>行业</th>
+      <th>职位</th>
+      <th>婚姻状态</th>
+      <th>工作状态</th>
+      <th>小孩</th>
+      <th>邮编</th>
+      <th>拥有者</th>
+    </tr>
+  </thead>
+  <tfoot> 
+  {% for ss in 搜索列表 %}
+    <tr >
+      <td>{{ss.id}}</td>
+      <td>{{ss.account}}</td>
+      <td>{{ss.area}}</td>
+      <td>{{ss.province}}</td>
+      <td>{{ss.city}}</td>
+      <td>{{ss.county}}</td>
+      <td>{{ss.sex}}</td>
+      <td>{{ss.birthday}}</td>
+      <td>{{ss.edu}}</td>
+      <td>{{ss.trade}}</td>
+      <td>{{ss.position}}</td>
+      <td>{{ss.marriage}}</td>
+      <td>{{ss.working}}</td>
+      <td>{{ss.child}}</td>
+      <td>{{ss.zip_code}}</td>
+      <td>{{ss.user}}</td>
+    </tr>
+  {% endfor %}  
+  </tfoot>
+  
+</table>
+</div>
+{% endblock search_list %}

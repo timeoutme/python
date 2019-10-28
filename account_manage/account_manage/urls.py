@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from account_list.views import home, add, add_save, login
+from account_list.views import home, add, add_save, login, search
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,4 +23,5 @@ urlpatterns = [
     path('add/',add,name='添加'),
     path('add/save/',add_save,name='保存'),
     path('login/',login,name='登录'),
+    path('search/',search, name='搜索'),
 ]
