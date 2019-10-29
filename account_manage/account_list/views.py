@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from .models import Accounts
 from django.contrib.auth.models import User
 from django.contrib import auth
-from django.db.models import Q
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 # Create your views here.
 
 def login(request):
@@ -62,16 +62,57 @@ def home(request):
 
 
 def search(request):
-    if request.method == 'POST':
-        area = request.POST.get('area')
-        province = request.POST.get('province')
-        city = request.POST.get('city')
-        county = request.POST.get('county')
-        area_list = Accounts.objects.filter(area=area)
-        province_list = Accounts.objects.filter(area=area,province=province)
-        city_list = Accounts.objects.filter(area=area,province=province,city=city)
-        county_list = Accounts.objects.filter(area=area,province=province,city=city,county=county)
-        # search_get_list = Accounts.objects.filter(Q(area__startswith=area) | Q(province__startswith=province) | Q(city__startswith=city) & Q(county__startswith=county))
+    # if request.method == 'POST':
+    area = request.POST.get('area')
+    province = request.POST.get('province')
+    city = request.POST.get('city')
+    county = request.POST.get('county')
+#根据搜索条件获取对应列表
+    area_list = Accounts.objects.filter(area=area)
+    province_list = Accounts.objects.filter(area=area,province=province)
+    city_list = Accounts.objects.filter(area=area,province=province,city=city)
+    county_list = Accounts.objects.filter(area=area,province=province,city=city,county=county)
+    # 根据搜索后的列表做分页
+    area_list_paging = Paginator(area_list,10)
+    province_list_paging = Paginator(province_list,2)
+    city_list_paging = Paginator(Paginator,10)
+    county_list_paging = Paginator(county_list,10)
+
+    
+    page_num = request.GET.get('page',1)
+    page_of_area_list = area_list_paging.get_page(page_num)
+    page_of_province_list = province_list_paging.get_page(page_num)
+
+
+    # try:
+    #     areas = area_list_paging.page(page)
+    # except PageNotAnInteger:
+    #     areas = area_list_paging.page(1)    
+    # 根据搜索条件推送数据
+    if area:
+        if province:
+            
+            if city:
+
+                if county:
+                    return render(request,'search_list.html',{'搜索列表':county_list})
+                else:
+                    return render(request,'search_list.html',{'搜索列表':city_list})   
+            else:
+                return render(request,'search_list.html',{'搜索列表':page_of_province_list})
+        else:
+            
+            return render(request,'search_list.html',{'搜索列表':page_of_area_list})    
+
+    if request.method == 'GET':
+        
+
+
+        # try:
+        #     areas = area_list_paging.page(page)
+        # except PageNotAnInteger:
+        #     areas = area_list_paging.page(1)    
+        # 根据搜索条件推送数据
         if area:
             if province:
                 
@@ -82,11 +123,12 @@ def search(request):
                     else:
                         return render(request,'search_list.html',{'搜索列表':city_list})   
                 else:
-                    return render(request,'search_list.html',{'搜索列表':province_list})
+                    return render(request,'search_list.html',{'搜索列表':page_of_province_list})
             else:
-                return render(request,'search_list.html',{'搜索列表':area_list})    
+                
+                return render(request,'search_list.html',{'搜索列表':page_of_area_list})        
        
-       
+            
         
 
         
