@@ -33,8 +33,10 @@
       <th>拥有者</th>
     </tr>
   </thead>
+  
+    
   <tfoot> 
-  {% for ss in 搜索列表.object_list %}
+  {% for ss in pages %}
     <tr >
       <td>{{ss.id}}</td>
       <td>{{ss.account}}</td>
@@ -53,37 +55,48 @@
       <td>{{ss.zip_code}}</td>
       <td>{{ss.user}}</td>
     </tr>
+    
   {% endfor %}  
   </tfoot>
   
 </table>
+<div>
 
-<nav class="pagination" role="navigation" aria-label="pagination">
-  <a class="pagination-previous" >上一页</a>
-  <a class="pagination-next" href="?=page={{ 搜索列表.next_page_number }}">下一页</a>
+
+
+  
+   
+  
+        
+
+  <nav class="pagination" role="navigation" aria-label="pagination">
+  {% if page_list.has_previous %}
+    <a class="pagination-previous" href="?area={{ area }}&previous={{ province }}&city={{ city }}&county={{ county }}&page={{page_list.previous_page_number}}">上一页</a>
+  {% else %}
+    <a class="pagination-previous" disabled>上一页</a>
+  {% endif %}
+
+  {% if page_list.has_next %}
+    <a class="pagination-next" href="?area={{ area }}&previous={{ province }}&city={{ city }}&county={{ county }}&page={{page_list.next_page_number}}">下一页</a>
+  {% else %}
+    <a class="pagination-next" disabled>下一页</a>
+  {% endif %}   
   <ul class="pagination-list">
     <li>
-      <a class="pagination-link" aria-label="Goto page 1">1</a>
+      <a class="pagination-link is-current" aria-label="Page 1" aria-current="page">1</a>
     </li>
     <li>
-      <span class="pagination-ellipsis">&hellip;</span>
+      <a class="pagination-link" aria-label="Goto page 2">2</a>
     </li>
     <li>
-      <a class="pagination-link" aria-label="Goto page 45">45</a>
-    </li>
-    <li>
-      <a class="pagination-link is-current" aria-label="Page 46" aria-current="page">46</a>
-    </li>
-    <li>
-      <a class="pagination-link" aria-label="Goto page 47">47</a>
-    </li>
-    <li>
-      <span class="pagination-ellipsis">&hellip;</span>
-    </li>
-    <li>
-      <a class="pagination-link" aria-label="Goto page 86">86</a>
+      <a class="pagination-link" aria-label="Goto page 3">3</a>
     </li>
   </ul>
-</nav>
+</nav>  
+
+
+
+  
+
 </div>
 {% endblock search_list %}

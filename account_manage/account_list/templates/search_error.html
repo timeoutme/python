@@ -1,0 +1,15 @@
+{% extends 'bast.html' %}
+
+<div>
+    {% block basic_info %}
+
+        {% include 'choose.html' %}
+
+    {% endblock basic_info %}
+</div>
+
+{% block search_list %}
+<div>
+      <span> {{ 搜索错误 }} </span>
+</div>
+{% endblock search_list %}

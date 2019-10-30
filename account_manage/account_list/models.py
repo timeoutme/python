@@ -21,5 +21,8 @@ class Accounts(models.Model):
     create_time = models.DateTimeField(auto_now_add=True)
     user = models.CharField(max_length=30)
     
+    class Meta:
+        ordering = ['-id']
+        
     
      
