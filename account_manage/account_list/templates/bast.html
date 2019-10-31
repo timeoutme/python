@@ -32,10 +32,13 @@
                     {% if user.is_authenticated %}
                     <a class="button is-primary" href="{% url '添加'%}">
                         添加
-                        </a>
+                    </a>
+                    <a class="button is-primary" href="{% url '退出'%}">
+                        退出
+                    </a>
 
                     {% else %}    
-                        <a class="button is-light">
+                        <a class="button is-light" href="{% url '注册' %}">
                         <strong>注册</strong>
                         </a>
                         <a class="button is-primary" href="{% url '登录' %}">
@@ -64,7 +67,9 @@
         {% block search_list %}
         {% endblock search_list %}
 
-    
+        {% block register %}          
+        {% endblock register %}
+
 </body>
 <script type="text/javascript" src="/static/js/citydatas.js"></script>
 <script type="text/javascript" src="/static/js/select.js"></script>

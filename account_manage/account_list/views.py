@@ -1,7 +1,8 @@
 from django.shortcuts import render,redirect
-from .models import Accounts
+from .models import Accounts,User
 from django.contrib.auth.models import User
 from django.contrib import auth
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 # Create your views here.
@@ -19,6 +20,25 @@ def login(request):
             auth.login(request,user)
             return redirect('主页')
 
+
+def register(request):
+    if request.method == 'GET':
+        return render(request,'register.html')
+    if request.method == 'POST':
+        username = request.POST.get('username',None)
+        password = request.POST.get('password',None)
+        password1 = request.POST.get('password1',None)   
+        if password==password1:
+            password=password1
+        else:
+            return render(request,'register.html',{'密码错误':'您输入的密码不一致，请重新输入！'})
+        User.objects.create_user(username=username,password=password)
+        return redirect('登录')
+
+
+def logoutt(request):
+    auth.logout(request)
+    return redirect('主页')
 
 
 
@@ -105,4 +125,3 @@ def search(request):
     
 
     return render(request,'search_list.html',page_data)
-    

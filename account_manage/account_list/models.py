@@ -24,5 +24,16 @@ class Accounts(models.Model):
     class Meta:
         ordering = ['-id']
         
-    
-     
+
+class User(models.Model):
+    user_id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=120,unique=True)    
+    password = models.CharField(max_length=256)    
+    create_time = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ['create_time']
+        
