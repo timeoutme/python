@@ -2,12 +2,16 @@
 
 {% block register %} 
 <div>
+{{密码错误}}
+{{用户名错误}}
 <form action="" method="POST">
     {% csrf_token %}
-    <span>请输入用户名</span>
+    <label for="">请输入用户名</label>    
     <input type="text" name="username" id="">
-    <span>请输入密码</span>
+    <span>{{userform.username.errors.0}}</span>
+    <label for="">请设置密码</label>    
     <input type="password" name="password" id="">
+    <span>{{userform.password.error.0}}</span>
     <span>请再次输入密码</span>
     <input type="password" name="password1" id="">
     <button type="submit">提交</button>

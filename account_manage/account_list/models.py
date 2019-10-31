@@ -1,5 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import User
+
+# from django.contrib.auth.models import User
 # Create your models here.
 
 class Accounts(models.Model):
@@ -25,9 +26,9 @@ class Accounts(models.Model):
         ordering = ['-id']
         
 
-class User(models.Model):
+class User_account(models.Model):
     user_id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=120,unique=True)    
+    name = models.CharField(max_length=120,unique=True,null=False)    
     password = models.CharField(max_length=256)    
     create_time = models.DateTimeField(auto_now_add=True)
 
@@ -36,4 +37,5 @@ class User(models.Model):
 
     class Meta:
         ordering = ['create_time']
-        
+
+

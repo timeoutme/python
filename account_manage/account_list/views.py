@@ -1,39 +1,80 @@
 from django.shortcuts import render,redirect
-from .models import Accounts,User
+from .models import Accounts,User_account
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
+from .form import Register_form, Login_form
+from django.contrib.auth.hashers import make_password, check_password
 # Create your views here.
+
+def home(request):
+    return redirect('搜索')
+    # return render(request,'home.html',{'账号':Accounts.objects.all()})
 
 def login(request):
     if request.method == 'GET':
         return render(request,'login.html')   
     elif request.method == 'POST':
-        user_name = request.POST['用户名']
-        password1 = request.POST['密码']
-        user = auth.authenticate(username=user_name,password=password1)
-        if user is None:
-            return render(request,'login.html', {'错误':'用户名或密码错误'})
-        else:
+               
+        username = request.POST['username']
+        password = request.POST['password']
+        user = auth.authenticate(username=username,password=password)
+        if user:
             auth.login(request,user)
-            return redirect('主页')
+            return redirect('主页') 
+        else:
+            return render(request,'login.html', {'错误':'用户名或密码错误'})
+    
+
+        # username = request.POST['用户名']
+        # password = request.POST['密码']
+        # user = auth.authenticate(username=user_name,password=password1)
+        # if user is None:
+        #     return render(request,'login.html', {'错误':'用户名或密码错误'})
+        # else:
+        #     auth.login(request,user)
+        #     return redirect('主页')
 
 
 def register(request):
     if request.method == 'GET':
         return render(request,'register.html')
     if request.method == 'POST':
-        username = request.POST.get('username',None)
-        password = request.POST.get('password',None)
-        password1 = request.POST.get('password1',None)   
-        if password==password1:
-            password=password1
-        else:
-            return render(request,'register.html',{'密码错误':'您输入的密码不一致，请重新输入！'})
-        User.objects.create_user(username=username,password=password)
-        return redirect('登录')
+            username = request.POST['username']
+            password = request.POST['password']
+            password1 = request.POST['password1']
+            db_username = User.objects.filter(username__exact=username)
+            if db_username:
+                return render(request,'register.html',{'用户名错误':'您输入的用户名已被占用，请重新输入！'})        
+
+            if password == password1:
+                
+                User.objects.create_user(username=username,password=password1)
+                
+                return redirect('登录')
+            else:
+                return render(request,'register.html',{'密码错误':'您输入的密码不一致，请重新输入！'})
+
+        # username = request.POST.get('username',None)
+        # password = request.POST.get('password',None)
+        # password1 = request.POST.get('password1',None)   
+        # if password==password1:
+        #     password=password1
+        # else:
+        #     return render(request,'register.html',{'密码错误':'您输入的密码不一致，请重新输入！'})
+        # try:
+        #     user = User.objects.get(username=username)    
+        # except Exception:
+        #     user = None
+        # if user:    
+        #     return render(request,'register.html',{'用户名错误':'您输入的用户名已被占用，请重新输入！'})
+        
+        # User.objects.create_user(username=username,password=password)
+        # return redirect('登录')
+        
+        
 
 
 def logoutt(request):
@@ -71,15 +112,14 @@ def add_save(request):
 
             acc = Accounts(account=account,area=area,province=province,city=city,county=county,sex=sex,birthday=birthday,edu=edu,trade=trade,position=position,marriage=marriage,working=working,child=child,user=user,zip_code=zip_code)
             acc.save()
-            return render(request,'add.html',{'账号':Accounts.objects.all()})
+            return render(request,'add.html')
         else:
-            return render(request,'add.html',{'错误':'请查看是否有信息没填','账号':Accounts.objects.all()})    
+            return render(request,'add.html',{'错误':'请查看是否有信息没填'})    
     elif request.method == 'GET':
-        return render(request,'add.html',{'账号':Accounts.objects.all()})
+        return render(request,'add.html')
 
 
-def home(request):
-    return render(request,'home.html',{'账号':Accounts.objects.all()})
+
 
 
 def search(request): 
@@ -89,7 +129,7 @@ def search(request):
     province = request.GET.get('province')
     city = request.GET.get('city')
     county = request.GET.get('county')
-    
+    user = request.user
 
     search_dict = dict()
 
@@ -102,7 +142,7 @@ def search(request):
     if county:
         search_dict['county'] = county
 
-    search_of_list = Accounts.objects.filter(**search_dict)  
+    search_of_list = Accounts.objects.filter(user=user,**search_dict)  
     
     pageing = Paginator(search_of_list,10) 
     page_num = request.GET.get('page',1)
