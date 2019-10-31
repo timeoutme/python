@@ -87,15 +87,20 @@ def search(request):
     pageing = Paginator(search_of_list,10) 
     page_num = request.GET.get('page',1)
     page_list = pageing.get_page(page_num)
-    
+    current_page = page_list.number
+    pages = pageing.num_pages    
+    page_of_pages = pageing.page_range
 
     page_data =dict()
     page_data['page_list'] = page_list
-    page_data['pages'] = page_list.object_list
+    page_data['page'] = page_list.object_list
     page_data['area'] = area
     page_data['province'] =province
     page_data['city'] = city
     page_data['county'] = county
+    page_data['page_of_pages'] = page_of_pages
+    page_data['current_page'] = current_page
+
     
     
 

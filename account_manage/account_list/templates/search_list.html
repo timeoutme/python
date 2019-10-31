@@ -36,7 +36,7 @@
   
     
   <tfoot> 
-  {% for ss in pages %}
+  {% for ss in page %}
     <tr >
       <td>{{ss.id}}</td>
       <td>{{ss.account}}</td>
@@ -76,22 +76,30 @@
     <a class="pagination-previous" disabled>上一页</a>
   {% endif %}
 
+    
+ 
+ 
+
+
   {% if page_list.has_next %}
     <a class="pagination-next" href="?area={{ area }}&previous={{ province }}&city={{ city }}&county={{ county }}&page={{page_list.next_page_number}}">下一页</a>
   {% else %}
     <a class="pagination-next" disabled>下一页</a>
   {% endif %}   
   <ul class="pagination-list">
+  {% for a in page_of_pages %}
+  
+   {% if a == current_page %}
     <li>
-      <a class="pagination-link is-current" aria-label="Page 1" aria-current="page">1</a>
+      <a class="pagination-link is-current" aria-label="Page 1" aria-current="page" href="?area={{ area }}&previous={{ province }}&city={{ city }}&county={{ county }}&page={{a}}">{{ a }}</a>
     </li>
+    {% else %}
     <li>
-      <a class="pagination-link" aria-label="Goto page 2">2</a>
+      <a class="pagination-link" aria-label="Goto page 2" href="?area={{ area }}&previous={{ province }}&city={{ city }}&county={{ county }}&page={{a}}">{{ a }}</a>
     </li>
-    <li>
-      <a class="pagination-link" aria-label="Goto page 3">3</a>
-    </li>
-  </ul>
+
+    {% endif %}
+  {% endfor %}
 </nav>  
 
 
