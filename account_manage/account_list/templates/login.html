@@ -2,24 +2,51 @@
 
 
 {% block login %}
-<div>
-<h2>欢迎您的到来</h2>
-        {{错误}}
-        
-        <form class="form-horizontal" action="{% url '登录' %}" method="POST" >
-        {% csrf_token %}
-        <div class="form-group">
-            <label for="user_name">用户名：</label>
-            <input type="text" name="username" >
-        </div>
-        
-        <div class="form-group">
-                <label for="password">密码：</label>
-                <input type="password" name="password">
-        </div>
-        
-        <input type="submit" value="登陆">
-    </form>
+<div style="margin-left: 40%; margin-top: 30px;">
+<div class="content" style="height: 220px; width: 300px;" align="center">
 
+    <div class="">
+        <div align="center"><h2>欢迎您的到来</h2></div>
+        <br>
+        </hr>
+        {{错误}}
+        <div>
+            <form class="" action="{% url '登录' %}" method="POST" >
+            {% csrf_token %}
+                <div class="field">
+                    <p class="control has-icons-left has-icons-right">
+                    <input class="input" type="text" placeholder="用户名" name="username">
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-envelope"></i>
+                    </span>
+                    <span class="icon is-small is-right">
+                        <i class="fas fa-check"></i>
+                    </span>
+                    </p>
+                </div>
+                <div class="field">
+                    <p class="control has-icons-left">
+                    <input class="input" type="password" placeholder="密 码" name="password">
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-lock"></i>
+                    </span>
+                    </p>
+                </div>
+                <div class="">
+                    
+                    <button class="button is-success is-right" type="submit">
+                        登 陆
+                    </button>
+                </div>    
+                        
+                
+            </form>
+        </div>
+    </div>
+</div>
 </div>
 {% endblock login %}
+
+
+
+

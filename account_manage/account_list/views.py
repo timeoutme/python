@@ -5,8 +5,6 @@ from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
-from .form import Register_form, Login_form
-from django.contrib.auth.hashers import make_password, check_password
 # Create your views here.
 
 def home(request):
@@ -42,9 +40,13 @@ def register(request):
     if request.method == 'GET':
         return render(request,'register.html')
     if request.method == 'POST':
-            username = request.POST['username']
-            password = request.POST['password']
-            password1 = request.POST['password1']
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            password1 = request.POST.get('password1')
+            
+            if not all([username,password,password1]):
+                
+                return render(request,'register.html',{'值为空':'用户名或密码不能为空'})
             db_username = User.objects.filter(username__exact=username)
             if db_username:
                 return render(request,'register.html',{'用户名错误':'您输入的用户名已被占用，请重新输入！'})        
@@ -79,7 +81,7 @@ def register(request):
 
 def logoutt(request):
     auth.logout(request)
-    return redirect('主页')
+    return redirect('登录')
 
 
 
