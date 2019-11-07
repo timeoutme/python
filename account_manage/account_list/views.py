@@ -5,6 +5,7 @@ from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
+import datetime
 # Create your views here.
 
 def home(request):
@@ -106,13 +107,16 @@ def add_save(request):
             child = request.POST['child']
             zip_code = request.POST['zip_code']  
             user = request.user
-
+            
             year = request.POST['year']
             month = request.POST['month']
             day = request.POST['day']
+            
+            
             birthday = year + '年' + month + '月' + day + '日'
 
-            acc = Accounts(account=account,area=area,province=province,city=city,county=county,sex=sex,birthday=birthday,edu=edu,trade=trade,position=position,marriage=marriage,working=working,child=child,user=user,zip_code=zip_code)
+            acc = Accounts(account=account,area=area,province=province,city=city,county=county,sex=sex,
+                birthday=birthday,edu=edu,trade=trade,position=position,marriage=marriage,working=working,child=child,user=user,zip_code=zip_code,age=year)
             acc.save()
             return render(request,'add.html')
         else:
@@ -159,6 +163,10 @@ def search(request):
     page_data['area'] = area
     page_data['province'] =province
     page_data['city'] = city
+    
+    
+    # age = now_year - int(Accounts.age[0])
+    # page_data['age'] = age
     page_data['county'] = county
     page_data['page_of_pages'] = page_of_pages
     page_data['current_page'] = current_page

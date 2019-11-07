@@ -11,6 +11,7 @@ class Accounts(models.Model):
     city = models.CharField(max_length=10)
     county = models.CharField(max_length=10)
     sex = models.CharField(max_length=5)
+    age = models.IntegerField(max_length=3)
     birthday = models.CharField(max_length=30)
     edu = models.CharField(max_length=10)
     trade = models.CharField(max_length=30)
@@ -22,6 +23,7 @@ class Accounts(models.Model):
     create_time = models.DateTimeField(auto_now_add=True)
     user = models.CharField(max_length=30)
     
+
     class Meta:
         ordering = ['-id']
         
