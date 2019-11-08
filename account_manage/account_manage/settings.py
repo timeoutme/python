@@ -25,7 +25,7 @@ SECRET_KEY = 'ar2i94z51&rxdb1mol4=0awndov4p_)uhh45k$j9e00du=mswd'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -126,3 +126,6 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
     
 ]
+
+
+LOGIN_URL = '/login/'

@@ -8,8 +8,24 @@ from django.db.models import Q
 import datetime
 # Create your views here.
 
+@login_required
 def home(request):
-    return redirect('搜索')
+    
+    user = request.user
+    display_all = Accounts.objects.filter(user=user)
+    display_page = Paginator(display_all,10)
+    page_num = request.GET.get('page',1)
+    page_list = display_page.get_page(page_num)
+    current_page = page_list.number
+    pages = display_page.num_pages    
+    page_of_pages = display_page.page_range
+
+    page_data =dict()
+    page_data['page_list'] = page_list
+    page_data['page'] = page_list.object_list
+
+    return render(request,'display_list.html',page_data)
+    
     # return render(request,'home.html',{'账号':Accounts.objects.all()})
 
 def login(request):
@@ -91,11 +107,10 @@ def add(request):
 
 def add_save(request):
     if request.method == 'POST':
-        if request.POST['account']:
-            account = request.POST['account']
-            print(account)
+        if request.POST['account'] and request.POST.get('province'):
+            account = request.POST['account']            
             area = request.POST['area']
-            province = request.POST['province']
+            province = request.POST.get('province')
             city = request.POST['city']
             county = request.POST['county']
             sex = request.POST['sex']         
@@ -110,17 +125,15 @@ def add_save(request):
             
             year = request.POST['year']
             month = request.POST['month']
-            day = request.POST['day']
-            
-            
+            day = request.POST['day']     
             birthday = year + '年' + month + '月' + day + '日'
-
+            
             acc = Accounts(account=account,area=area,province=province,city=city,county=county,sex=sex,
                 birthday=birthday,edu=edu,trade=trade,position=position,marriage=marriage,working=working,child=child,user=user,zip_code=zip_code,age=year)
             acc.save()
-            return render(request,'add.html')
+            return render(request,'add.html',{'成功':'添加成功'})
         else:
-            return render(request,'add.html',{'错误':'请查看是否有信息没填'})    
+            return render(request,'add.html',{'错误':'添加失败，请填写省份地区信息'})    
     elif request.method == 'GET':
         return render(request,'add.html')
 

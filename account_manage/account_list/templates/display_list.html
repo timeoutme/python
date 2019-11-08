@@ -1,5 +1,19 @@
 
+{% extends 'bast.html' %}
+
+<div>
+    {% block basic_info %}
+
+        {% include 'choose.html' %}
+
+    {% endblock basic_info %}
+</div>
+
+
+{% block display_list %}
+<div>
 <table class="table is-fullwidth" style="margin-top: 10px;">
+
   <thead>
     <tr>
       <th>编号</th>
@@ -9,8 +23,8 @@
       <th>城市</th>
       <th>区县</th>
       <th>性别</th>
-      <th>年龄</th>
       <th>生日</th>
+      <th>年龄</th>
       <th>学历</th>
       <th>行业</th>
       <th>职位</th>
@@ -21,28 +35,79 @@
       <th>拥有者</th>
     </tr>
   </thead>
+  
+    
   <tfoot> 
-  {% for acc in 账号 %}
+  {% for ss in page %}
     <tr >
-      <td>{{acc.id}}</td>
-      <td>{{acc.account}}</td>
-      <td>{{acc.area}}</td>
-      <td>{{acc.province}}</td>
-      <td>{{acc.city}}</td>
-      <td>{{acc.county}}</td>
-      <td>{{acc.sex}}</td>
-      <td>{{acc.age}}</td>
-      <td>{{acc.birthday}}</td>
-      <td>{{acc.edu}}</td>
-      <td>{{acc.trade}}</td>
-      <td>{{acc.position}}</td>
-      <td>{{acc.marriage}}</td>
-      <td>{{acc.working}}</td>
-      <td>{{acc.child}}</td>
-      <td>{{acc.zip_code}}</td>
-      <td>{{acc.user}}</td>
+      <td>{{ss.id}}</td>
+      <td>{{ss.account}}</td>
+      <td>{{ss.area}}</td>
+      <td>{{ss.province}}</td>
+      <td>{{ss.city}}</td>
+      <td>{{ss.county}}</td>
+      <td>{{ss.sex}}</td>
+      <td>{{ss.birthday}}</td>
+      <td id="age" name="age">{{ss.age}}</td>
+      <td>{{ss.edu}}</td>
+      <td>{{ss.trade}}</td>
+      <td>{{ss.position}}</td>
+      <td>{{ss.marriage}}</td>
+      <td>{{ss.working}}</td>
+      <td>{{ss.child}}</td>
+      <td>{{ss.zip_code}}</td>
+      <td>{{ss.user}}</td>
     </tr>
+    
   {% endfor %}  
   </tfoot>
   
 </table>
+<div>
+
+
+
+  
+   
+  
+        
+
+  <nav class="pagination" role="navigation" aria-label="pagination">
+  {% if page_list.has_previous %}
+    <a class="pagination-previous" href="?&page={{page_list.previous_page_number}}">上一页</a>
+  {% else %}
+    <a class="pagination-previous" disabled>上一页</a>
+  {% endif %}
+
+    
+ 
+ 
+
+
+  {% if page_list.has_next %}
+    <a class="pagination-next" href="?&page={{page_list.next_page_number}}">下一页</a>
+  {% else %}
+    <a class="pagination-next" disabled>下一页</a>
+  {% endif %}   
+  <ul class="pagination-list">
+  {% for a in page_of_pages %}
+  
+   {% if a == current_page %}
+    <li>
+      <a class="pagination-link is-current" aria-label="Page 1" aria-current="page" href="?area={{ area }}&previous={{ province }}&city={{ city }}&county={{ county }}&page={{a}}">{{ a }}</a>
+    </li>
+    {% else %}
+    <li>
+      <a class="pagination-link" aria-label="Goto page 2" href="?area={{ area }}&previous={{ province }}&city={{ city }}&county={{ county }}&page={{a}}">{{ a }}</a>
+    </li>
+
+    {% endif %}
+  {% endfor %}
+</nav>  
+
+
+
+  
+
+</div>
+{% endblock display_list %}

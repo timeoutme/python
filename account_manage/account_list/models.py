@@ -11,7 +11,7 @@ class Accounts(models.Model):
     city = models.CharField(max_length=10)
     county = models.CharField(max_length=10)
     sex = models.CharField(max_length=5)
-    age = models.IntegerField(max_length=3)
+    age = models.IntegerField()
     birthday = models.CharField(max_length=30)
     edu = models.CharField(max_length=10)
     trade = models.CharField(max_length=30)
