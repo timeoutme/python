@@ -120,7 +120,9 @@ def add_save(request):
             marriage = request.POST['marriage']
             working = request.POST['working']
             child = request.POST['child']
-            zip_code = request.POST['zip_code']  
+            zip_code = request.POST['zip_code']
+            personal_monthly_income = request.POST.get('personal_monthly_income') 
+            family_monthly_inconme = request.POST.get('family_monthly_inconme') 
             user = request.user
             
             year = request.POST['year']
@@ -129,7 +131,9 @@ def add_save(request):
             birthday = year + '年' + month + '月' + day + '日'
             
             acc = Accounts(account=account,area=area,province=province,city=city,county=county,sex=sex,
-                birthday=birthday,edu=edu,trade=trade,position=position,marriage=marriage,working=working,child=child,user=user,zip_code=zip_code,age=year)
+                birthday=birthday,edu=edu,trade=trade,position=position,marriage=marriage,
+                working=working,child=child,user=user,zip_code=zip_code,age=year,
+                personal_monthly_income=personal_monthly_income,family_monthly_inconme=family_monthly_inconme)
             acc.save()
             return render(request,'add.html',{'成功':'添加成功'})
         else:

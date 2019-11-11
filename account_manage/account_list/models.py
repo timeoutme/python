@@ -22,7 +22,9 @@ class Accounts(models.Model):
     zip_code = models.CharField(max_length=10)
     create_time = models.DateTimeField(auto_now_add=True)
     user = models.CharField(max_length=30)
-    
+    personal_monthly_income = models.CharField(max_length=20)
+    family_monthly_income = models.CharField(max_length=20)
+
 
     class Meta:
         ordering = ['-id']
