@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from account_list.views import home, add, add_save, login, search, register, logoutt
+from account_list.views import home, add, add_save, login, search, register, logoutt, delete
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,4 +26,5 @@ urlpatterns = [
     path('search/',search, name='搜索'),
     path('register/',register,name='注册'),
     path('logout',logoutt,name='退出'),
+    path('delete/<ss_id>',delete,name='删除'),
 ]

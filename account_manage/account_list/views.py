@@ -146,14 +146,12 @@ def add_save(request):
 
 
 def search(request): 
-
     # if request.method == 'POST':
     area = request.GET.get('area')
     province = request.GET.get('province')
     city = request.GET.get('city')
     county = request.GET.get('county')
     user = request.user
-
     search_dict = dict()
 
     if area:
@@ -165,30 +163,27 @@ def search(request):
     if county:
         search_dict['county'] = county
 
-    search_of_list = Accounts.objects.filter(user=user,**search_dict)  
-    
+    search_of_list = Accounts.objects.filter(user=user,**search_dict) 
     pageing = Paginator(search_of_list,10) 
     page_num = request.GET.get('page',1)
     page_list = pageing.get_page(page_num)
     current_page = page_list.number
     pages = pageing.num_pages    
     page_of_pages = pageing.page_range
-
     page_data =dict()
     page_data['page_list'] = page_list
     page_data['page'] = page_list.object_list
     page_data['area'] = area
     page_data['province'] =province
-    page_data['city'] = city
-    
-    
+    page_data['city'] = city   
     # age = now_year - int(Accounts.age[0])
     # page_data['age'] = age
     page_data['county'] = county
     page_data['page_of_pages'] = page_of_pages
     page_data['current_page'] = current_page
-
-    
-    
-
     return render(request,'search_list.html',page_data)
+
+
+def delete(request,ss_id):    
+    Accounts.objects.get(id=ss_id).delete()
+    return redirect('搜索')
