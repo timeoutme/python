@@ -19,11 +19,14 @@ class Accounts(models.Model):
     marriage =models.CharField(max_length=10)
     working = models.CharField(max_length=10)
     child = models.IntegerField()
+    child_age = models.IntegerField()
+    child_birthday = models.CharField(max_length=30)
     zip_code = models.CharField(max_length=10)
     create_time = models.DateTimeField(auto_now_add=True)
     user = models.CharField(max_length=30)
     personal_monthly_income = models.CharField(max_length=20)
     family_monthly_income = models.CharField(max_length=20)
+    hide_time = models.DateField()
 
 
     class Meta:

@@ -3,195 +3,253 @@
 
 <div>
 {% block add%}
-
+<table class="table is-fullwidth">
 <form action="{% url '保存' %}" method="POST">
     {% csrf_token %}
-    <div class="level navbar is-light" style="margin-top: 5px;">
-        <div class="level-item level-left ">            
-            请选择地区：
-            <div class="select is-danger" style="margin-right: 50px;">
-                <select id="area" name="area">
-                    <option value="中国大陆">中国大陆</option> 
-                </select>
-            </div>
-            请选择省份：
-            <div class="select is-info" style="margin-right: 50px;">
-                    <select id="province" name="province">
-                
+    
+    
+    <tr>
+        <td> 
+            <div class="level-item level-left ">      
+                请选择地区：
+                <div class="select is-danger" >
+                    <select id="area" name="area">
+                        <option value="中国大陆">中国大陆</option> 
                     </select>
+                </div>
             </div>
-            请选择城市：
-            <div class="select is-info" style="margin-right: 50px;">
-                    <select id="city" name="city">                  
-                        
-                    </select>
+        </td>
+        <td>
+            <div class="level-item level-left ">  
+                请选择省份：
+                <div class="select is-info" >
+                        <select id="province" name="province">
+                    
+                        </select>
+                </div>
             </div>
-            请选择区县：
-            <div class="select is-info" style="margin-right: 100px;">
-                    <select id="county" name="county">                  
-                        
-                    </select>
+        </td>
+        <td>
+            <div class="level-item level-left ">
+                请选择城市：
+                <div class="select is-info" >
+                        <select id="city" name="city">                  
+                            
+                        </select>
+                </div>
             </div>
-            
-        </div>        
-    </div> 
-    <div class="level navbar is-light" >
-        <div class="level-item level-left ">
-            请输入账号：
-            <input type="text" name="account" id="account">
-        </div>
-        <div class="level-item level-left ">
+        </td>
+        <td>
+            <div class="level-item level-left ">
+                请选择区县：
+                <div class="select is-info" >
+                        <select id="county" name="county">                  
+                            
+                        </select>
+                </div>
+            </div>    
+        </td>
+    </tr>
+    <tr>    
+        <td>
+            <div class="level-item level-left ">
+                请输入邮编：<input type="text" name="zip_code" id="zip_code">
+            </div>
+        </td>
+        <td>
+            <div class="level-item level-left ">
+                请输入账号：<input type="text" name="account" id="account">
+            </div>
+        </td>
+    </tr>           
+    
+    <tr>        
+        <td>
             请选择性别：
             <select name="sex" id="sex">
+                <option value="">请选择</option>
                 <option value="男">男</option>
-                <option value="男">女</option>
+                <option value="女">女</option>
             </select>
-        </div>
-        <div class="level-item level-left ">
-                请输入生日：
-                <select id="selYear" name="year"></select>年
-                <select id="selMonth" name="month"></select>月                            
-                <select id="selDay" name="day"></select>日       
-                <input type="text" name="bod" id="birthday" value="22" hidden> 
-        </div>
-        <div class="level-item level-left ">
-                请选择学历：<select name="edu" id="edu">
-                           <option value="初中" >初中</option>
-                           <option value="高中">高中</option> 
-                           <option value="大专">大专</option>
-                           <option value="本科">本科</option>
-                           <option value="硕士">硕士</option>
-                           <option value="博士">博士</option>
-                           </select>
-        </div>
-        <div class="level-item level-left ">
-                请选择行业：
-                <select name="trade" id="trade">
-                    <option value="航空航天与国防">航空航天与国防</option>
-                    <option value="航空公司">航空公司</option> 
-                    <option value="农业综合企业">农业综合企业</option>
-                    <option value="汽车/汽车零件">汽车/汽车零件</option>  
-                    <option value="银行和金融服务">银行和金融服务</option>
-                    <option value="生物技术与生命科学">生物技术与生命科学</option> 
-                    <option value="广播和有线电视">广播和有线电视</option>
-                    <option value="化学品和塑料">化学品和塑料</option> 
-                    <option value="计算机：硬件">计算机：硬件</option> 
-                    <option value="计算机：软件、服务">计算机：软件、服务</option>
-                    <option value="计算机：网络公司/电子商务/信息技术">计算机：网络公司/电子商务/信息技术</option> 
-                    <option value="建筑 / 工程">建筑 / 工程</option>
-                    <option value="咨询">咨询</option>  
-                    <option value="设计：图形艺术 / 商业艺术 / 产品设计 / 生产设计">设计：图形艺术 / 商业艺术 / 产品设计</option>
-                    <option value="设计：工程和建筑设计 / 室内设计">设计：工程和建筑设计 / 室内设计</option> 
-                    <option value="分发和交付">分发和交付</option>
-                    <option value="化学品和塑料">教育</option> 
-                    <option value="计算机：硬件">电子产品</option> 
-                    <option value="娱乐，电影和媒体">娱乐，电影和媒体</option>
-                    <option value="金融服务">金融服务</option> 
-                    <option value="食品，饮料和烟草">食品，饮料和烟草</option>
-                    <option value="政府工作">政府工作</option> 
-                    <option value="卫生保健：设施">卫生保健：设施</option> 
-                    <option value="卫生保健：医药">卫生保健：医药</option>
-                    <option value="卫生保健：产品和用品">卫生保健：产品和用品</option>
-                    <option value="食宿 / 餐饮 / 酒店">食宿 / 餐饮 / 酒店</option>
-                    <option value="保险">保险</option>
-                    <option value="法律服务">法律服务</option>    
-                    <option value="维护/ 房地产">维护/ 房地产</option>
-                    <option value="制造业">制造业</option>
-                    <option value="营销 / 广告">营销 / 广告</option>
-                    <option value="自然资源与矿业">自然资源与矿业</option>
-                    <option value="个人服务：理发师，摄影师">个人服务：理发师，摄影师</option>
-                    <option value="出版/ 新闻学">出版/ 新闻学</option>
-                    <option value="零售：一般">零售：一般</option>
-                    <option value="零售：特色">零售：特色</option>
-                    <option value="电信">电信</option>
-                    <option value="电话市场/呼叫中心">电话市场/呼叫中心</option>
-                    <option value="运输">运输</option>
-                    <option value="旅游">旅游</option>
-                    <option value="公共事业">公共事业</option>
-                </select>
-        </div>
-    </div>  
-    <div class="level navbar is-light" >
-            <div class="level-item level-left " >
-                请选择职务：
-                <select name="position" id="position">
-                        <option value="一般职员">一般职员</option>
-                        <option value="技术人员">技术人员</option> 
-                        <option value="管理人员">管理人员</option>
-                        <option value="高层人员">高层人员</option>
-                        <option value="个体户">个体户</option>
-                        <option value="私营业主">私营业主</option>
-                        <option value="自由职业者">自由职业者</option>
-                        <option value="其它">其它</option>  
-                                              
-                    </select>
-            </div>
-            <div class="level-item level-left ">
-                    婚姻状态：
-                    <select name="marriage" id="marriage">
-                        <option value="未婚">未婚</option>
-                        <option value="同居">同居</option> 
-                        <option value="已婚">已婚</option>
-                        <option value="离婚">离婚</option>                        
-                    </select>
-            </div>
-            <div class="level-item level-left ">
-                    工作状态：
-                    <select name="working" id="working">
-                            <option value="兼职">兼职</option>
-                            <option value="全职">全职</option> 
-                            <option value="自由职业">自由职业</option>
-                            <option value="未工作">未工作</option>                        
-                    </select>
-            </div>
-            <div class="level-item level-left ">
-                    小孩人数：
-                    <select name="child" id="child">
-                        <option value="0">0</option>
-                        <option value="1">1</option> 
-                        <option value="2">2</option>
-                        <option value="3">3</option>                        
-                    </select>
-            </div>
-            <div class="level-item level-left ">
-                    请输入邮编：
-                <input type="text" name="zip_code" id="zip_code">
-            </div>
-        </div>  
-        <div class="level navbar is-light" >  
-            <div class="level-item level-left ">
-                    个人月收入：
-                    <select name="personal_monthly_income" id="personal_monthly_income">                        
-                        <option value="2000 ~ 4000元">2000 ~ 4000元</option> 
-                        <option value="4000 ~ 6000元">4000 ~ 6000元</option>
-                        <option value="6000 ~ 8000元">6000 ~ 8000元</option>
-                        <option value="8000 ~ 10000元">8000 ~ 10000元</option> 
-                        <option value="10000 ~ 15000元">10000 ~ 15000元</option>
-                        <option value="15000 ~ 20000元">15000 ~ 20000元</option>
-                        <option value="20000 ~ 30000元">20000 ~ 30000元</option> 
-                        <option value="30000元以上">30000元以上</option>                       
-                    </select>
-            </div>
-            <div class="level-item level-left ">
-                    家庭月收入：
-                    <select name="family_monthly_income" id="family_monthly_income">                            
-                            <option value="2000 ~ 4000元">2000 ~ 4000元</option> 
-                            <option value="4000 ~ 6000元">4000 ~ 6000元</option>
-                            <option value="6000 ~ 8000元">6000 ~ 8000元</option>
-                            <option value="8000 ~ 10000元">8000 ~ 10000元</option> 
-                            <option value="10000 ~ 15000元">10000 ~ 15000元</option>
-                            <option value="15000 ~ 20000元">15000 ~ 20000元</option>
-                            <option value="20000 ~ 30000元">20000 ~ 30000元</option> 
-                            <option value="30000元以上">30000元以上</option>                           
-                    </select>
-            </div>
-                
-        </div>  
+        </td>
+        <td>
+            请输入生日：
+            <select id="selYear" name="year"></select>年
+            <select id="selMonth" name="month"></select>月                            
+            <select id="selDay" name="day"></select>日       
+            <input type="text" name="bod" id="birthday" value="22" hidden> 
+        </td>
+        <td>
+            请选择学历：
+            <select name="edu" id="edu">
+                <option value="">请选择</option>
+                <option value="初中" >初中</option>
+                <option value="高中">高中</option> 
+                <option value="大专">大专</option>
+                <option value="本科">本科</option>
+                <option value="硕士">硕士</option>
+                <option value="博士">博士</option>
+            </select>
+        </td>
+    </tr>  
+    <tr>
+        <td>                 
+            工作状态：                 
+            <select name="working" id="working">                         
+                <option value="">请选择</option>                         
+                <option value="兼职">兼职</option>                         
+                <option value="全职">全职</option>                          
+                <option value="自由职业">自由职业</option>                         
+                <option value="未工作">未工作</option>                                         
+            </select>         
+        </td>
+        <td >
+            请选择行业：
+            <select name="trade" id="trade">
+                <option value="">请选择</option>
+                <option value="航空航天与国防">航空航天与国防</option>
+                <option value="航空公司">航空公司</option> 
+                <option value="农业综合企业">农业综合企业</option>
+                <option value="汽车/汽车零件">汽车/汽车零件</option>  
+                <option value="银行和金融服务">银行和金融服务</option>
+                <option value="生物技术与生命科学">生物技术与生命科学</option> 
+                <option value="广播和有线电视">广播和有线电视</option>
+                <option value="化学品和塑料">化学品和塑料</option> 
+                <option value="计算机网络/软件/硬件">计算机网络/软件/硬件</option> 
+                <option value="建筑 / 工程">建筑 / 工程</option>
+                <option value="咨询">咨询</option>  
+                <option value="设计">设计</option>                
+                <option value="分发和交付">分发和交付</option>
+                <option value="化学品和塑料">教育</option> 
+                <option value="计算机：硬件">电子产品</option> 
+                <option value="娱乐，电影和媒体">娱乐，电影和媒体</option>
+                <option value="金融服务">金融服务</option> 
+                <option value="食品，饮料和烟草">食品，饮料和烟草</option>
+                <option value="政府工作">政府工作</option> 
+                <option value="医疗保健">医疗保健</option>                 
+                <option value="旅游/餐饮/酒店">旅游/餐饮/酒店</option>
+                <option value="保险">保险</option>
+                <option value="法律服务">法律服务</option>    
+                <option value="维护/ 房地产">维护/ 房地产</option>
+                <option value="制造业">制造业</option>
+                <option value="营销 / 广告">营销 / 广告</option>
+                <option value="自然资源与矿业">自然资源与矿业</option>
+                <option value="理发师/摄影师">理发师，摄影师</option>
+                <option value="出版/ 新闻学">出版/ 新闻学</option>
+                <option value="零售/批发">零售/批发</option>
+                <option value="人力资源">人力资源</option>
+                <option value="电信">电信</option>
+                <option value="电话市场/呼叫中心">电话市场/呼叫中心</option>
+                <option value="运输">运输</option>
+                <option value="旅游">旅游</option>
+                <option value="公共事业">公共事业</option>
+            </select>
+        </td>
+        <td>
+            请选择职务：                 
+            <select name="position" id="position">
+                <option value="">请选择</option>
+                <option value="一般职员">一般职员</option>
+                <option value="技术人员">技术人员</option>
+                <option value="管理人员">管理人员</option>
+                <option value="高层人员">高层人员</option>
+                <option value="个体户">个体户</option>
+                <option value="私营业主">私营业主</option>
+                <option value="自由职业者">自由职业者</option>
+                <option value="其它">其它</option>
+            </select>
+        </td>
+    </tr>    
+    
         
-        <div class="buttons is-centered" ><input class="button is-link" type="submit" value="保  存"></div>    
-        <div class="buttons is-centered" ><span style="color: red;"> {{错误}} </span> </div> 
-        <div class="buttons is-centered" ><span style="color: dodgerblue;"> {{成功}} </span> </div>           
+            
+    <tr>
+        <td>                        
+            婚姻状态：
+            <select name="marriage" id="marriage">
+                <option value="">请选择</option>
+                <option value="未婚">未婚</option>
+                <option value="同居">同居</option> 
+                <option value="已婚">已婚</option>
+                <option value="离婚">离婚</option>                        
+            </select>                        
+        </td>  
+        <td>
+            <div id="child" style="display: none;">
+                小孩人数：
+                <select name="child" id="child_numbers">
+                    <option value="0">请选择</option>
+                    <option value="0">0</option>
+                    <option value="1">1</option> 
+                    <option value="2">2</option>
+                    <option value="3">3</option>                        
+                </select>
+            </div>
+        </td> 
+        <td>
+            <div id="child_sex" style="display: none;">
+                请选择小孩性别：
+                <select name="child_sex" id="sex">
+                    <option value="">请选择</option>
+                    <option value="男">男</option>
+                    <option value="女">女</option>
+                </select>
+            </div>
+        </td> 
+        <td>
+            <div id="child_birthday" style="display: none;">
+                请输入小孩生日：
+                <select id="child_Year" name="child_year"></select>年
+                <select id="child_Month" name="child_month"></select>月                            
+                <select id="child_Day" name="child_day"></select>日      
+                    
+            </div>
+        </td>
+    </tr>
+        
+    
+      
+    <tr>  
+        <td>
+            个人月收入：
+            <select name="personal_monthly_income" id="personal_monthly_income"> 
+                <option value="">请选择</option>                       
+                <option value="2000~4000元">2000 ~ 4000元</option> 
+                <option value="4000~6000元">4000 ~ 6000元</option>
+                <option value="6000~8000元">6000 ~ 8000元</option>
+                <option value="8000~10000元">8000 ~ 10000元</option> 
+                <option value="10000~15000元">10000 ~ 15000元</option>
+                <option value="15000~20000元">15000 ~ 20000元</option>
+                <option value="20000~30000元">20000 ~ 30000元</option> 
+                <option value="30000元以上">30000元以上</option>                       
+            </select>
+        </td>
+        <td>
+            家庭月收入：
+            <select name="family_monthly_income" id="family_monthly_income">  
+                    <option value="">请选择</option>                          
+                    <option value="2000~4000元">2000 ~ 4000元</option> 
+                    <option value="4000~6000元">4000 ~ 6000元</option>
+                    <option value="6000~8000元">6000 ~ 8000元</option>
+                    <option value="8000~10000元">8000 ~ 10000元</option> 
+                    <option value="10000~15000元">10000 ~ 15000元</option>
+                    <option value="15000~20000元">15000 ~ 20000元</option>
+                    <option value="20000~30000元">20000 ~ 30000元</option> 
+                    <option value="30000元以上">30000元以上</option>                           
+            </select>
+        </td>
+            
+    </tr>  
+    <tr>
+        <td>    
+            <div class="buttons is-centered" ><input class="button is-link" type="submit" value="保  存"></div> 
+        </td>  
+        <td> 
+            <div class="buttons is-centered" ><span style="color: red;"> {{错误}} </span> </div> 
+            <div class="buttons is-centered" ><span style="color: dodgerblue;"> {{成功}} </span> </div>
+        </td>
+    </tr>               
 </form>
-
+</table>
 {% endblock add %}
 </div>

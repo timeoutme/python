@@ -19,10 +19,11 @@ def home(request):
     current_page = page_list.number
     pages = display_page.num_pages    
     page_of_pages = display_page.page_range
-
+    count = display_all.count()    
     page_data =dict()
     page_data['page_list'] = page_list
     page_data['page'] = page_list.object_list
+    page_data['count'] =count
 
     return render(request,'display_list.html',page_data)
     
@@ -101,10 +102,11 @@ def logoutt(request):
     return redirect('登录')
 
 
-
+@login_required
 def add(request):
     return render(request,'add.html')   
 
+@login_required
 def add_save(request):
     if request.method == 'POST':
         if request.POST['account'] and request.POST.get('province'):
@@ -122,18 +124,24 @@ def add_save(request):
             child = request.POST['child']
             zip_code = request.POST['zip_code']
             personal_monthly_income = request.POST.get('personal_monthly_income') 
-            family_monthly_inconme = request.POST.get('family_monthly_inconme') 
+            family_monthly_income = request.POST.get('family_monthly_income') 
             user = request.user
-            
+
             year = request.POST['year']
             month = request.POST['month']
             day = request.POST['day']     
             birthday = year + '年' + month + '月' + day + '日'
+
+            child_year = request.POST.get('child_year')
+                         
+            child_month = request.POST.get('child_month')             
+            child_day = request.POST.get('child_day')                
+            child_birthday = child_year + '年' + child_month + '月' + child_day + '日'
             
             acc = Accounts(account=account,area=area,province=province,city=city,county=county,sex=sex,
                 birthday=birthday,edu=edu,trade=trade,position=position,marriage=marriage,
-                working=working,child=child,user=user,zip_code=zip_code,age=year,
-                personal_monthly_income=personal_monthly_income,family_monthly_inconme=family_monthly_inconme)
+                working=working,child=child,user=user,zip_code=zip_code,age=year,child_age=child_year,child_birthday=child_birthday,
+                personal_monthly_income=personal_monthly_income,family_monthly_income=family_monthly_income)
             acc.save()
             return render(request,'add.html',{'成功':'添加成功'})
         else:
@@ -144,16 +152,18 @@ def add_save(request):
 
 
 
-
+@login_required
 def search(request): 
     # if request.method == 'POST':
+    now_time = datetime.datetime.now()
+
     area = request.GET.get('area')
     province = request.GET.get('province')
     city = request.GET.get('city')
     county = request.GET.get('county')
     user = request.user
     search_dict = dict()
-
+    
     if area:
         search_dict['area'] = area
     if province:
@@ -163,7 +173,8 @@ def search(request):
     if county:
         search_dict['county'] = county
 
-    search_of_list = Accounts.objects.filter(user=user,**search_dict) 
+    search_of_list1 = Accounts.objects.filter(user=user,**search_dict)
+    search_of_list = search_of_list1.filter(hide_time__lte=now_time)
     pageing = Paginator(search_of_list,10) 
     page_num = request.GET.get('page',1)
     page_list = pageing.get_page(page_num)
@@ -183,7 +194,17 @@ def search(request):
     page_data['current_page'] = current_page
     return render(request,'search_list.html',page_data)
 
-
+@login_required
 def delete(request,ss_id):    
     Accounts.objects.get(id=ss_id).delete()
+    return redirect('搜索')
+
+
+@login_required
+def hide(request,ss_id):
+         
+    ob = Accounts.objects.get(id=ss_id)
+    print(ob)
+    ob.hide_time = datetime.datetime.now()+datetime.timedelta(days=3)
+    ob.save()
     return redirect('搜索')
