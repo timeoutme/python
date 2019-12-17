@@ -26,7 +26,7 @@ class Accounts(models.Model):
     user = models.CharField(max_length=30)
     personal_monthly_income = models.CharField(max_length=20)
     family_monthly_income = models.CharField(max_length=20)
-    hide_time = models.DateField()
+    hide_time = models.DateField(auto_now_add=True)
 
 
     class Meta:
