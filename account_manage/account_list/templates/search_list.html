@@ -1,4 +1,4 @@
-{% extends 'bast.html' %}
+﻿{% extends 'bast.html' %}
 
 <div>
     {% block basic_info %}
@@ -19,7 +19,7 @@
       
       <th>省份</th>
       <th>城市</th>
-      <th>区县</th>
+      
       <th>性别</th>
       <th>生日</th>
       <th>年龄</th>
@@ -47,7 +47,7 @@
       
       <td>{{ss.province}}</td>
       <td>{{ss.city}}</td>
-      <td>{{ss.county}}</td>
+      
       <td>{{ss.sex}}</td>
       <td>{{ss.birthday}}</td>
       <td id="age" name="age">{{ss.age}}</td>
@@ -66,7 +66,7 @@
       <form action="" method="POST">
         <td>
           <a href="{% url '隐藏' ss.id %}" style="text-decoration-line: none " class="button is-small is-primary"> 隐藏 </a>
-          <a href="{% url '删除' ss.id %}" style="text-decoration-line: none ">删除</a>
+          
           
         </td>
         
@@ -77,7 +77,7 @@
   </tfoot>
   
 </table>
-<div>
+<!-- <div>
 
 
 
@@ -123,5 +123,37 @@
 
   
 
+</div> -->
+<div>
+  
+    <nav class="pagination" role="navigation" aria-label="pagination">
+         
+    {% if page_list.has_previous %}
+      <a class="pagination-previous" href="?area={{ area }}&province={{ province }}&city={{ city }}&county={{ county }}&page={{page_list.previous_page_number}}">上一页</a>
+    {% else %}
+      <a class="pagination-previous" disabled>上一页</a>
+    {% endif %}
+
+    {% if page_list.has_next %}
+      <a class="pagination-next" href="?area={{ area }}&province={{ province }}&city={{ city }}&county={{ county }}&page={{page_list.next_page_number}}">下一页</a>
+    {% else %}
+      <a class="pagination-next" disabled>下一页</a>
+    {% endif %}   
+    <ul class="pagination-list">
+      <span style="color: cornflowerblue;">获取信息 {{count}} 条</span>
+    <!-- {% for a in page_of_pages %}
+    
+    {% if a == current_page %}
+      <li>
+        <a class="pagination-link is-current" aria-label="Page 1" aria-current="page" href="?area={{ area }}&previous={{ province }}&city={{ city }}&county={{ county }}&page={{a}}">{{ a }}</a>
+      </li>
+      {% else %}
+      <li>
+        <a class="pagination-link" aria-label="Goto page 2" href="?area={{ area }}&previous={{ province }}&city={{ city }}&county={{ county }}&page={{a}}">{{ a }}</a>
+      </li>
+
+      {% endif %}
+    {% endfor %} -->
+  </nav>  
 </div>
 {% endblock search_list %}

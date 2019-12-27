@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 import datetime
+import requests
 # Create your views here.
 
 @login_required
@@ -173,8 +174,9 @@ def search(request):
     if county:
         search_dict['county'] = county
 
-    search_of_list1 = Accounts.objects.filter(user=user,**search_dict)
-    search_of_list = search_of_list1.filter(hide_time__lte=now_time)
+    search_of_list = Accounts.objects.filter(user=user,hide_time__lte=now_time,**search_dict)
+    # search_of_list = search_of_list1.filter(hide_time__lte=now_time)
+    count = search_of_list.count()
     pageing = Paginator(search_of_list,10) 
     page_num = request.GET.get('page',1)
     page_list = pageing.get_page(page_num)
@@ -192,6 +194,7 @@ def search(request):
     page_data['county'] = county
     page_data['page_of_pages'] = page_of_pages
     page_data['current_page'] = current_page
+    page_data['count'] = count
     return render(request,'search_list.html',page_data)
 
 @login_required
@@ -201,10 +204,74 @@ def delete(request,ss_id):
 
 
 @login_required
-def hide(request,ss_id):
-         
-    ob = Accounts.objects.get(id=ss_id)
-    print(ob)
+def hide(request,ss_id):         
+    ob = Accounts.objects.get(id=ss_id)    
     ob.hide_time = datetime.datetime.now()+datetime.timedelta(days=3)
     ob.save()
     return redirect('搜索')
+
+def get_info(request):
+    # Accounts.objects.all().delete()
+    url = "http://kyandata.com/memberinfo/index"
+    get_info = requests.get(url)
+    get_all_info = get_info.json()['data']
+    # print(type(get_rul_info))
+    # print(get_rul_info)
+
+    
+
+    for get_rul_info in get_all_info:
+        account_info = get_rul_info.get('logName')
+        result = Accounts.objects.filter(account=account_info)
+        if result.count()==0:
+            birthday = get_rul_info['birthday'][0:10]
+            birthday_year = get_rul_info['birthday'][0:4]
+            if get_rul_info['babyYear'] == None:
+                child_birthday = get_rul_info['babyYear']=0
+            else:  
+                child_birthday = get_rul_info['babyYear'][0:10]
+                child_year = child_birthday[0:4]
+
+            if get_rul_info['cityName'] == None:
+                get_rul_info['cityName']='市' 
+
+            if get_rul_info['country'] == None:
+                get_rul_info['country']='SS'  
+
+            if get_rul_info['name']== None:
+                get_rul_info['name']= 'SS'  
+
+            if get_rul_info.get('name')=='北京市':            
+                get_rul_info['cityName']='北京市'
+                get_rul_info['name'] ='北京'
+
+            if get_rul_info.get('name')=='天津市':            
+                get_rul_info['cityName']='天津市'
+                get_rul_info['name'] ='天津'
+
+            if get_rul_info.get('name')=='上海市':            
+                get_rul_info['cityName']='上海市'  
+                get_rul_info['name'] ='上海' 
+
+            if get_rul_info.get('name')=='重庆市':            
+                get_rul_info['cityName']='重庆市'
+                get_rul_info['name'] ='重庆'
+            
+
+            # province=get_rul_info.get('name').replace('市','')
+            province=get_rul_info['name'].replace('省','')
+            get_rul_info['name']=province
+            acc_info = Accounts(account=get_rul_info['logName'],area=get_rul_info['country'],province=get_rul_info['name'],city=get_rul_info['cityName'],sex=get_rul_info['sex'],
+                        birthday=birthday,edu=get_rul_info['education'],trade='行业',position=get_rul_info['job'],marriage=get_rul_info['maritalStatus'],
+                        working=get_rul_info['workingStatus'],child='1',user=get_rul_info['owerName'],zip_code=get_rul_info['zip'],age=birthday_year,child_age=child_year,child_birthday=child_birthday,
+                        personal_monthly_income=get_rul_info['monthlySalary'],family_monthly_income='1',user_id=get_rul_info.get('id'))
+            acc_info.save()
+    return redirect('登录')    
+
+def cler_info(request):
+    Accounts.objects.all().delete()
+    return redirect('登录') 
+
+def quc(request):
+    Accounts.objects.values('user_id').distinct().order_by('user_id')
+    return redirect('登录')     
