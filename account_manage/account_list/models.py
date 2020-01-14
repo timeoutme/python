@@ -5,12 +5,12 @@ from django.db import models
 
 class Accounts(models.Model):
     id = models.AutoField(primary_key=True)
-    user_id = models.IntegerField()
+    user_id = models.IntegerField(max_length=20)
     account = models.CharField(max_length=40,unique=True)
     area = models.CharField(max_length=10)
-    province = models.CharField(max_length=10)
-    city = models.CharField(max_length=10)
-    county = models.CharField(max_length=10)
+    province = models.CharField(max_length=10,null=True)
+    city = models.CharField(max_length=20,null=True)
+    county = models.CharField(max_length=10,null=True)
     sex = models.CharField(max_length=5)
     age = models.IntegerField(null=True)
     birthday = models.CharField(max_length=30,null=True)
@@ -19,14 +19,14 @@ class Accounts(models.Model):
     position = models.CharField(max_length=10)
     marriage =models.CharField(max_length=10)
     working = models.CharField(max_length=10)
-    child = models.IntegerField()
+    child = models.IntegerField(max_length=10,null=True)
     child_age = models.IntegerField(null=True)
     child_birthday = models.CharField(max_length=30,null=True)
     zip_code = models.CharField(max_length=10)
     create_time = models.DateTimeField(auto_now_add=True)
     user = models.CharField(max_length=30)
     personal_monthly_income = models.CharField(max_length=20)
-    family_monthly_income = models.CharField(max_length=20)
+    family_monthly_income = models.CharField(max_length=20,null=True)
     hide_time = models.DateField(auto_now_add=True)
 
 

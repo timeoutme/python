@@ -6,7 +6,7 @@ url = "http://kyandata.com/memberinfo/index"
 get_rul_info = requests.get(url)
 get_all_info = get_rul_info.json()['data']
 print(type(get_rul_info))
-print(get_all_info[1])
+print(get_all_info[259])
 # a= get_all_info[1]
 # d =a.get('birthday')
 # d=d[0:10]
@@ -22,3 +22,5 @@ print(get_all_info[1])
 #     #     print(name)
 #     if info.get('name')=='重庆市':
 #         print(info.get('cityName'))
+
+# print(datetime.datetime.now().year)

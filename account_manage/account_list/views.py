@@ -275,3 +275,70 @@ def cler_info(request):
 def quc(request):
     Accounts.objects.values('user_id').distinct().order_by('user_id')
     return redirect('登录')     
+
+from apscheduler.schedulers.background import BackgroundScheduler
+# def job1():
+#     print('job1',datetime.datetime.now())
+def get_accounts():
+    url = "http://kyandata.com/memberinfo/index"
+    get_info = requests.get(url)
+    get_all_info = get_info.json()['data']
+    # print(type(get_rul_info))
+    # print(get_rul_info)  
+
+    for get_rul_info in get_all_info:
+        account_info = get_rul_info.get('logName')
+        result = Accounts.objects.filter(account=account_info)
+        if result.count()==0:
+            if get_rul_info['country'] == 'CN':
+                birthday = get_rul_info['birthday'][0:10]
+                birthday_year = get_rul_info['birthday'][0:4]
+                if get_rul_info['babyYear'] == None:
+                    child_birthday = get_rul_info['babyYear']=0
+                    child_year = datetime.datetime.now().year
+                else:  
+                    child_birthday = get_rul_info['babyYear'][0:10]
+                    child_year = child_birthday[0:4]
+
+                # if get_rul_info['cityName'] == None:
+                #     get_rul_info['cityName']='市' 
+
+                # if get_rul_info['country'] == None:
+                #     get_rul_info['country']='SS'  
+
+                # if get_rul_info['name']== None:
+                #     get_rul_info['name']= 'SS'  
+
+                if get_rul_info.get('name')=='北京市':            
+                    get_rul_info['cityName']='北京市'
+                    get_rul_info['name'] ='北京'
+
+                if get_rul_info.get('name')=='天津市':            
+                    get_rul_info['cityName']='天津市'
+                    get_rul_info['name'] ='天津'
+
+                if get_rul_info.get('name')=='上海市':            
+                    get_rul_info['cityName']='上海市'  
+                    get_rul_info['name'] ='上海' 
+
+                if get_rul_info.get('name')=='重庆市':            
+                    get_rul_info['cityName']='重庆市'
+                    get_rul_info['name'] ='重庆'
+                
+                if get_rul_info['name'] != None:
+                # province=get_rul_info.get('name').replace('市','')
+                    province=get_rul_info['name'].replace('省','')
+                    get_rul_info['name']=province
+
+                acc_info = Accounts(account=get_rul_info['logName'],area=get_rul_info['country'],province=get_rul_info['name'],city=get_rul_info['cityName'],sex=get_rul_info['sex'],
+                            birthday=birthday,edu=get_rul_info['education'],trade='行业',position=get_rul_info['job'],marriage=get_rul_info['maritalStatus'],
+                            working=get_rul_info['workingStatus'],child='1',user=get_rul_info['owerName'],zip_code=get_rul_info['zip'],age=birthday_year,child_age=child_year,child_birthday=child_birthday,
+                            personal_monthly_income=get_rul_info['monthlySalary'],user_id=get_rul_info.get('id'))
+                acc_info.save()
+    print('数据获取成功')
+    print(datetime.datetime.now())
+
+scheduler = BackgroundScheduler()
+# scheduler.add_job(job1,'interval',minutes=1,id='aa')
+scheduler.add_job(get_accounts,'interval',minutes=60)
+scheduler.start()
