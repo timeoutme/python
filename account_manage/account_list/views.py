@@ -95,7 +95,8 @@ def register(request):
         # User.objects.create_user(username=username,password=password)
         # return redirect('登录')
         
-        
+def search_userid(request):
+    return render(request, 'search_userid.html')
 
 
 def logoutt(request):
@@ -144,11 +145,11 @@ def add_save(request):
                 working=working,child=child,user=user,zip_code=zip_code,age=year,child_age=child_year,child_birthday=child_birthday,
                 personal_monthly_income=personal_monthly_income,family_monthly_income=family_monthly_income)
             acc.save()
-            return render(request,'add.html',{'成功':'添加成功'})
+            return render(request, 'add.html', {'成功': '添加成功'})
         else:
-            return render(request,'add.html',{'错误':'添加失败，请填写省份地区信息'})    
+            return render(request, 'add.html', {'错误': '添加失败，请填写省份地区信息'})
     elif request.method == 'GET':
-        return render(request,'add.html')
+        return render(request, 'add.html')
 
 
 
@@ -174,11 +175,11 @@ def search(request):
     if county:
         search_dict['county'] = county
 
-    search_of_list = Accounts.objects.filter(user=user,hide_time__lte=now_time,**search_dict)
+    search_of_list = Accounts.objects.filter(user=user, hide_time__lte=now_time, **search_dict)
     # search_of_list = search_of_list1.filter(hide_time__lte=now_time)
     count = search_of_list.count()
-    pageing = Paginator(search_of_list,10) 
-    page_num = request.GET.get('page',1)
+    pageing = Paginator(search_of_list, 10)
+    page_num = request.GET.get('page', 1)
     page_list = pageing.get_page(page_num)
     current_page = page_list.number
     pages = pageing.num_pages    

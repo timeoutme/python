@@ -31,8 +31,8 @@
                 <div class="navbar-item">
                     <div class="buttons">
                     {% if user.is_authenticated %}
-                    <a class="button is-primary" href="{% url '添加'%}">
-                        添加
+                    <a class="button is-primary" href="{% url '搜索ID'%}">
+                        查询
                     </a>
                     <a class="button is-primary" href="{% url '退出'%}">
                         退出
@@ -67,6 +67,9 @@
 
         {% block search_list %}
         {% endblock search_list %}
+
+        {% block search_userid %}
+        {% endblock search_userid %}
 
         {% block register %}          
         {% endblock register %}

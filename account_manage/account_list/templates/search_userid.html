@@ -1,0 +1,50 @@
+
+{% extends 'bast.html' %}
+
+{% block search_userid %}
+
+
+<div>
+    <form action=" " method="GET">
+
+        <nav class="level navbar is-light" style="margin-top: 5px;">
+
+            <div class="level-item level-left">
+                <div style="margin-right: 20px;"><input class="text" value="请输入用户ID">
+                <input class=" is-link" type="submit" value="搜索"></div>
+            </div>
+        </nav>
+    </form>
+</div>
+
+
+
+<div class="columns column is-two-fifths">
+<table class="table is-fullwidth is-narrow" style="margin-top: 10px;">
+
+  <thead>
+    <tr>
+      <th>userid</th>
+      <th>使用者</th>
+
+    </tr>
+  </thead>
+
+
+  <tfoot>
+
+    <tr >
+      <td>123</td>
+      <td>xxx</td>
+
+
+
+    </tr>
+
+
+  </tfoot>
+
+
+</table>
+
+    {% endblock %}
