@@ -3,48 +3,43 @@
 
 {% block search_userid %}
 
+<div style="align-items: center; width: 400px; margin: 0 auto" >
+    <div>
+        <form action=" " method="POST">
+        {% csrf_token %}
+            <nav class="level navbar is-light" style="margin-top: 5px;">
 
-<div>
-    <form action=" " method="GET">
+                <div class="level-item level-left">
+                    <div style="margin-right: 20px;">请输入UserID:<input class="text" value="" name="user_id">
+                    <input class=" is-link" type="submit" value="搜索"></div>
+                </div>
+            </nav>
+        </form>
+    </div>
+    <div>
+    <p style="color: red">{{ err }}</p>
+    </div>
+    <div class="columns column "style="align-items: center">
+        <table class="table is-fullwidth is-narrow" style="margin-top: 10px;">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>user</th>
 
-        <nav class="level navbar is-light" style="margin-top: 5px;">
+            </tr>
+          </thead>
 
-            <div class="level-item level-left">
-                <div style="margin-right: 20px;"><input class="text" value="请输入用户ID">
-                <input class=" is-link" type="submit" value="搜索"></div>
-            </div>
-        </nav>
-    </form>
+
+          <tfoot>
+              {% for userid_obj in user_id_data %}
+
+                <tr >
+                  <td>{{userid_obj.user_id}}</td>
+                  <td>{{userid_obj.user}}</td>
+                </tr>
+
+              {% endfor %}
+          </tfoot>
+        </table>
 </div>
-
-
-
-<div class="columns column is-two-fifths">
-<table class="table is-fullwidth is-narrow" style="margin-top: 10px;">
-
-  <thead>
-    <tr>
-      <th>userid</th>
-      <th>使用者</th>
-
-    </tr>
-  </thead>
-
-
-  <tfoot>
-
-    <tr >
-      <td>123</td>
-      <td>xxx</td>
-
-
-
-    </tr>
-
-
-  </tfoot>
-
-
-</table>
-
     {% endblock %}

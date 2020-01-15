@@ -96,7 +96,19 @@ def register(request):
         # return redirect('登录')
         
 def search_userid(request):
-    return render(request, 'search_userid.html')
+    if request.method == 'GET':
+        return render(request, 'search_userid.html')
+    if request.method == 'POST':
+        user_id = request.POST.get('user_id')
+        if user_id.isdigit():
+            print(user_id)
+            user_id_obj = Accounts.objects.filter(user_id=user_id)
+
+            obj = {}
+            obj['user_id_data'] = user_id_obj
+            return render(request, 'search_userid.html', obj)
+        else:
+            return render(request, 'search_userid.html', {'err':'输入的userid有误'})
 
 
 def logoutt(request):
