@@ -108,7 +108,11 @@ def search_userid(request):
             obj['user_id_data'] = user_id_obj
             return render(request, 'search_userid.html', obj)
         else:
-            return render(request, 'search_userid.html', {'err':'输入的userid有误'})
+            user_id_obj = Accounts.objects.filter(account=user_id)
+
+            obj = {}
+            obj['user_id_data'] = user_id_obj
+            return render(request, 'search_userid.html', obj)
 
 
 def logoutt(request):

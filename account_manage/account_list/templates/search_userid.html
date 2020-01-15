@@ -10,7 +10,7 @@
             <nav class="level navbar is-light" style="margin-top: 5px;">
 
                 <div class="level-item level-left">
-                    <div style="margin-right: 20px;">请输入UserID:<input class="text" value="" name="user_id">
+                    <div style="margin-right: 20px;">请输入UserID/Account:<input class="text" value="" name="user_id">
                     <input class=" is-link" type="submit" value="搜索"></div>
                 </div>
             </nav>
@@ -23,8 +23,9 @@
         <table class="table is-fullwidth is-narrow" style="margin-top: 10px;">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>user</th>
+              <th>UserID</th>
+              <th>Account</th>
+              <th>User</th>
 
             </tr>
           </thead>
@@ -35,6 +36,7 @@
 
                 <tr >
                   <td>{{userid_obj.user_id}}</td>
+                  <td>{{userid_obj.account}}</td>
                   <td>{{userid_obj.user}}</td>
                 </tr>
 
